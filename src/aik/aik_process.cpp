@@ -19,7 +19,6 @@
 
 // C++ STL
 #include <stdexcept>
-#include <format>
 #include <iostream>
 
 aik::aik_process::aik_process()  = default;
