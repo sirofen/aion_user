@@ -17,7 +17,7 @@ set(SOURCES
         src/aik/client_values.cpp
         src/aik/utils/utils.cpp)
 
-add_executable(user_mode main.cpp ${SOURCES})
+add_library(user_mode SHARED ${SOURCES})
 target_include_directories(user_mode PRIVATE include)
 
 # POST_BUILD patcher
