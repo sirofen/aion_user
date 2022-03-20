@@ -1,0 +1,6 @@
+/.vs/
+/cmake-build-debug/
+/old/
+/out/
+/main.cpp
+/CMakeSettings.json
