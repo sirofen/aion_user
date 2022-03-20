@@ -4,7 +4,7 @@ project(user_mode)
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "/std:c++latest")
 set(CMAKE_CXX_STANDARD 23)
 
-message(${CMAKE_BINARY_DIR})
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS YES CACHE BOOL "Export all symbols")
 
 set(SOURCES
         src/aik/internal/driver.cpp
@@ -19,6 +19,3 @@ set(SOURCES
 
 add_library(user_mode SHARED ${SOURCES})
 target_include_directories(user_mode PRIVATE include)
-
-# POST_BUILD patcher
-include(cmake/PatchBinary.cmake)
