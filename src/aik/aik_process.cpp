@@ -193,52 +193,52 @@ aik::client_values aik::aik_process::read_client_values() {
     return {std::make_unique<game::entity_inf>(inf), std::make_unique<game::entity_pos>(pos)};
 }
 
-void aik::aik_process::write_client_values(const aik::aion_write& aion_write) {
+void aik::aik_process::write_client_values(std::unique_ptr<aion_write> aion_write) {
     using namespace aion_structures;
     if (!is_process_attached()) {
         return;
     }
-    if (is_console_pattern_found() && aion_write.get_console()) {
-        m_process->write_memory(m_aion_proc_console_ptr, &*aion_write.get_console(), sizeof(*aion_write.get_console()));
+    if (is_console_pattern_found() && aion_write->get_console()) {
+        m_process->write_memory(m_aion_proc_console_ptr, &*aion_write->get_console(), sizeof(*aion_write->get_console()));
     }
-    if (is_radar_found() && aion_write.get_radar()) {
+    if (is_radar_found() && aion_write->get_radar()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_radar_ptr) + offsetof(cry3dengine::radar, cry3dengine::radar::init),
-                                &*aion_write.get_radar(),
-                                sizeof(*aion_write.get_radar()));
+                                &*aion_write->get_radar(),
+                                sizeof(*aion_write->get_radar()));
     }
     if (!is_player_found()) {
         return;
     }
 
-    if (aion_write.get_attack_speed()) {
+    if (aion_write->get_attack_speed()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_inf_ptr) + offsetof(game::entity_inf, game::entity_inf::attack_speed),
-                                &*aion_write.get_attack_speed(),
-                                sizeof(*aion_write.get_attack_speed()));
+                                &*aion_write->get_attack_speed(),
+                                sizeof(*aion_write->get_attack_speed()));
     }
-    if (aion_write.get_speed()) {
+    if (aion_write->get_speed()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_inf_ptr) + offsetof(game::entity_inf, game::entity_inf::speed),
-                                &*aion_write.get_speed(),
-                                sizeof(*aion_write.get_speed()));
+                                &*aion_write->get_speed(),
+                                sizeof(*aion_write->get_speed()));
     }
-    if (aion_write.get_gravity()) {
+    if (aion_write->get_gravity()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_inf_ptr) + offsetof(game::entity_inf, game::entity_inf::gravity),
-                                &*aion_write.get_gravity(),
-                                sizeof(*aion_write.get_gravity()));
+                                &*aion_write->get_gravity(),
+                                sizeof(*aion_write->get_gravity()));
     }
-    if (aion_write.get_pox_x()) {
+    if (aion_write->get_pox_x()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_pos_ptr) + offsetof(game::entity_pos, game::entity_pos::x),
-                                &*aion_write.get_pox_x(),
-                                sizeof(*aion_write.get_pox_x()));
+                                &*aion_write->get_pox_x(),
+                                sizeof(*aion_write->get_pox_x()));
     }
-    if (aion_write.get_pos_y()) {
+    if (aion_write->get_pos_y()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_pos_ptr) + offsetof(game::entity_pos, game::entity_pos::y),
-                                &*aion_write.get_pos_y(),
-                                sizeof(*aion_write.get_pos_y()));
+                                &*aion_write->get_pos_y(),
+                                sizeof(*aion_write->get_pos_y()));
     }
-    if (aion_write.get_pos_z()) {
+    if (aion_write->get_pos_z()) {
         m_process->write_memory(reinterpret_cast<std::uint64_t>(m_aion_proc_self_pos_ptr) + offsetof(game::entity_pos, game::entity_pos::z),
-                                &*aion_write.get_pos_z(),
-                                sizeof(*aion_write.get_pos_z()));
+                                &*aion_write->get_pos_z(),
+                                sizeof(*aion_write->get_pos_z()));
     }
 
 }

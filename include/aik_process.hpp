@@ -53,7 +53,7 @@ public:
     /**
         Writes only initialised std::optional 's
     */
-    void write_client_values(const aion_write& aion_write);
+    void write_client_values(std::unique_ptr<aion_write> aion_write);
 
     /**
         Check atomic state
